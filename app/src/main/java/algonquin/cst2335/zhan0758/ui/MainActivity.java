@@ -1,4 +1,4 @@
-package algonquin.cst2335.zhan0758;
+package algonquin.cst2335.zhan0758.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import algonquin.cst2335.zhan0758.R;
 
 /**
  * Main page of the app that contains a password validation program

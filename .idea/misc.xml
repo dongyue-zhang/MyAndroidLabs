@@ -4,8 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.24270833333333333" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_chat_room.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_second.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/receive_message.xml" value="0.7417068481445312" />
+        <entry key="app/src/main/res/layout/sent_message.xml" value="0.263751220703125" />
       </map>
     </option>
   </component>
