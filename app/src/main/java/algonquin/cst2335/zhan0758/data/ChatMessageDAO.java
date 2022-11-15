@@ -10,12 +10,12 @@ import java.util.List;
 @Dao
 public interface ChatMessageDAO {
     @Insert
-    public void insertMessage(ChatMessage m);
+    public long insertMessage(ChatMessage m);
 
     @Query("SELECT * FROM ChatMessage")
-    List<ChatMessage> getAllMessage();
+    public List<ChatMessage> getAllMessage();
 
     @Delete
-    void deleteMessage(ChatMessage m);
+    public void deleteMessage(ChatMessage m);
 
 }

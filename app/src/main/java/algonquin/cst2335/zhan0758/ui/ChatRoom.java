@@ -3,8 +3,6 @@ package algonquin.cst2335.zhan0758.ui;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -112,16 +110,33 @@ public class ChatRoom extends AppCompatActivity {
 
         binding.sendButton.setOnClickListener(click -> {
             SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd-MMM-yyy hh-mm-ss a");
-            String currentDateandTIme = sdf.format(new Date());
-            messages.add(new ChatMessage(binding.textInput.getText().toString(), currentDateandTIme, true));
+            String currentDateandTime = sdf.format(new Date());
+            ChatMessage newMessage = new ChatMessage();
+            newMessage.setMessage(binding.textInput.getText().toString());
+            newMessage.setTimeSent(currentDateandTime);
+            newMessage.setSentButton(true);
+            messages.add(newMessage);
+
+            Executor thread = Executors.newSingleThreadExecutor();
+            thread.execute(() -> {
+                newMessage.id = (int) mDAO.insertMessage(newMessage);
+            });
             myAdapter.notifyItemInserted(messages.size() - 1);
             binding.textInput.setText("");
         });
 
         binding.receiveButton.setOnClickListener(click -> {
             SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd-MMM-yyy hh-mm-ss a");
-            String currentDateandTIme = sdf.format(new Date());
-            messages.add(new ChatMessage(binding.textInput.getText().toString(), currentDateandTIme, false));
+            String currentDateandTime = sdf.format(new Date());
+            ChatMessage newMessage2 = new ChatMessage();
+            newMessage2.setMessage(binding.textInput.getText().toString());
+            newMessage2.setTimeSent(currentDateandTime);
+            newMessage2.setSentButton(false);
+            messages.add(newMessage2);
+            Executor thread = Executors.newSingleThreadExecutor();
+            thread.execute(() -> {
+                newMessage2.setId((int) mDAO.insertMessage(newMessage2));
+            });
             myAdapter.notifyItemInserted(messages.size() - 1);
             binding.textInput.setText("");
         });

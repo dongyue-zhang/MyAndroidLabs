@@ -7,7 +7,8 @@ import androidx.room.PrimaryKey;
 @Entity
 public class ChatMessage {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
     public int id;
 
     @ColumnInfo(name = "message")
@@ -32,6 +33,26 @@ public class ChatMessage {
 
     public String getTimeSent() {
         return timeSent;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setTimeSent(String timeSent) {
+        this.timeSent = timeSent;
+    }
+
+    public void setSentButton(boolean sentButton) {
+        isSentButton = sentButton;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public boolean isSentButton() {
