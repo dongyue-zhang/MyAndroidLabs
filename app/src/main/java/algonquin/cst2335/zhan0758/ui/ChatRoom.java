@@ -7,8 +7,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
-
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,17 +45,14 @@ public class ChatRoom extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         TextView messageText;
-//        TextView timeText;
 
         messageText = binding.recycleView.findViewById(R.id.messageText);
-//        timeText = binding.recycleView.findViewById(R.id.timeText);
 
         switch(item.getItemId())
         {
             case R.id.delete:
                 AlertDialog.Builder builder = new AlertDialog.Builder(ChatRoom.this);
                 ChatMessage m = messages.get(position);
-//                ChatMessage m = chatModel.selectedMessage.getValue();
                 builder.setMessage("Do you want to delete the message: " + m)
                     .setTitle("Question:")
                     .setPositiveButton("Yes", (dialog, cl) -> {
@@ -154,7 +149,7 @@ public class ChatRoom extends AppCompatActivity {
 
             @Override
             public int getItemViewType(int position) {
-                if (messages.get(position).isSentButton() == true) {
+                if (messages.get(position).isSentButton()) {
                     return 0;
                 } else {
                     return 1;
