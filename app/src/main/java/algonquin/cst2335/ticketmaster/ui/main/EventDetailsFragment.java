@@ -39,7 +39,6 @@ import algonquin.cst2335.ticketmaster.databinding.EventDetailsBinding;
 
 public class EventDetailsFragment extends Fragment {
 
-    private EventViewModel mViewModel;
     Event selected;
     RequestQueue queue = null;
     ImageRequest imgReq= null;
@@ -157,27 +156,8 @@ public class EventDetailsFragment extends Fragment {
             });
         }
 
-
-//        binding.saveButton.setOnClickListener(click -> {
-//            EventDatabase db = Room.databaseBuilder(this.getActivity().getApplicationContext(), EventDatabase.class, "EventDatabase").build();
-//            EventDAO eventDAO = db.eventDAO();
-//            Executor thread = Executors.newSingleThreadExecutor();
-//            thread.execute(() -> {
-//                selected.setSaved(true);
-//                eventDAO.insertEvent(selected);
-////                db.eventDAO().insertEvent(selected);
-//            });
-
-
-//        });
         return binding.getRoot();
     }
 
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        mViewModel = new ViewModelProvider(this).get(EventViewModel.class);
-//
-//    }
 
 }

@@ -65,8 +65,6 @@ public class TicketMasterActivity extends AppCompatActivity {
     EventDetailsFragment eventFragment;
     EventDatabase db;
     EventDAO eventDAO;
-    String lastSearchCity;
-    int lastSearchRadius;
     String apiPrefix;
     String api;
     SharedPreferences prefs;
@@ -88,7 +86,6 @@ public class TicketMasterActivity extends AppCompatActivity {
         eventDAO = db.eventDAO();
 
         eventModel = new ViewModelProvider(this).get(EventViewModel.class);
-        //myAdaptor.notifyItemInserted(eventsList.size() - 1);
         queue = Volley.newRequestQueue(this);
 
         binding.searchButton.setOnClickListener(click -> {
@@ -98,89 +95,19 @@ public class TicketMasterActivity extends AppCompatActivity {
                 cityName = cityInput;
                 radius = Integer.parseInt(radiusInput);
                 search(cityName, radius);
-            } else if (cityInput.equals("") ) {
-                //radius = Integer.parseInt(radiusInput);
+            } else if (cityInput.equals("") ) {;
                 Toast.makeText(this, R.string.invalid_city, Toast.LENGTH_SHORT).show();
             } else if (radiusInput.equals("")) {
-                //cityName = cityInput;
                 Toast.makeText(this, R.string.no_radius, Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, R.string.zero_radius, Toast.LENGTH_SHORT).show();
             }
 
-//            try {
-//                radius = Integer.parseInt(binding.radiusSearch.getText().toString());
-//            } catch (NumberFormatException e) {
-//                e.printStackTrace();
-//                Toast.makeText(this, "Please enter a number for radius!", Toast.LENGTH_SHORT).show();
-//            }
             if (!binding.radiusSearch.getText().toString().equals("")) {
                 radius = Integer.parseInt(binding.radiusSearch.getText().toString());
             } else {
                 radius = 0;
             }
-
-
-//            eventsList.clear();
-//            cityName = binding.citySearch.getText().toString();
-//            radius = Integer.parseInt(binding.radiusSearch.getText().toString());
-//            if (!cityName.equals("") && radius != 0) {
-//                try {
-//                    api = apiPrefix + "&city=" + URLEncoder.encode(cityName, "UTF-8") + "&radius=" + radius;
-//                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, api, null, response -> {
-//                        try {
-//                            JSONArray events = response.getJSONObject("_embedded").getJSONArray("events");
-//
-//                            for (int i = 0; i < events.length(); i++) {
-//                                JSONObject event = events.getJSONObject(i);
-//                                String eventName = event.getString("name");
-//                                String eventId = event.getString("id");
-//                                String buyUrl = event.getString("url");
-//                                String imgUrl = event.getJSONArray("images").getJSONObject(3).getString("url");
-//                                String eventDate = event.getJSONObject("dates").getJSONObject("start").getString("dateTime");
-//                                String minPrice = event.getJSONArray("priceRanges").getJSONObject(0).getString("min");
-//                                String maxPrice = event.getJSONArray("priceRanges").getJSONObject(0).getString("max");
-//                                String currency = event.getJSONArray("priceRanges").getJSONObject(0).getString("currency");
-//                                String venue = event.getJSONObject("_embedded").getJSONArray("venues").getJSONObject(0).getString("name");
-//                                String postalCode = event.getJSONObject("_embedded").getJSONArray("venues").getJSONObject(0).getString("postalCode");
-//                                String city = event.getJSONObject("_embedded").getJSONArray("venues").getJSONObject(0).getJSONObject("city").getString("name");
-//                                String state = event.getJSONObject("_embedded").getJSONArray("venues").getJSONObject(0).getJSONObject("state").getString("stateCode");
-//                                String country = event.getJSONObject("_embedded").getJSONArray("venues").getJSONObject(0).getJSONObject("country").getString("name");
-//                                String address = event.getJSONObject("_embedded").getJSONArray("venues").getJSONObject(0).getJSONObject("address").getString("line1");
-//                                Event eventDTO = new Event();
-//                                eventDTO.setId(eventId);
-//                                eventDTO.setName(eventName);
-//                                eventDTO.setBuyUrl(buyUrl);
-//                                eventDTO.setImgUrl(imgUrl);
-//                                eventDTO.setDate(eventDate);
-//                                eventDTO.setMinPrice(minPrice);
-//                                eventDTO.setMaxPrice(maxPrice);
-//                                eventDTO.setCurrency(currency);
-//                                eventDTO.setVenue(venue);
-//                                eventDTO.setPostalCode(postalCode);
-//                                eventDTO.setCity(city);
-//                                eventDTO.setState(state);
-//                                eventDTO.setCountry(country);
-//                                eventDTO.setAddress(address);
-//                                eventDTO.setSaved(false);
-//                                eventsList.add(eventDTO);
-//                            }
-//                            myAdaptor.notifyDataSetChanged();
-//                            //myAdaptor.notifyItemRangeInserted(0,eventsList.size());
-//                            eventModel.events.setValue(eventsList);
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    },  (error) -> {});
-//
-//                    queue.add(request);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            } else {
-//                //TODO: add message for not enter city or radius
-//            }
-
 
         });
 
@@ -247,13 +174,11 @@ public class TicketMasterActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        //toronsuper.onDestroy();
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("apiPrefix", apiPrefix);
         editor.putString("city", cityName);
         editor.putInt("radius", radius);
         editor.apply();
-        //finish();
     }
 
     @Override
@@ -302,9 +227,6 @@ public class TicketMasterActivity extends AppCompatActivity {
 
                     }
                 });
-
-                //myAdaptor.notifyItemRangeInserted(0, eventsList.size());
-
                 break;
         }
 
@@ -312,14 +234,7 @@ public class TicketMasterActivity extends AppCompatActivity {
 
 
     }
-//    @Override
-//    public void onBackPressed() {
-//        if (getFragmentManager().getBackStackEntryCount() == 0) {
-//            this.finish();
-//        } else {
-//            getFragmentManager().popBackStack();
-//        }
-//    }
+
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
@@ -327,101 +242,86 @@ public class TicketMasterActivity extends AppCompatActivity {
 
     private void search(String cityName, int radius) {
         eventsList.clear();
-//        cityName = binding.citySearch.getText().toString();
-//        radius = Integer.parseInt(binding.radiusSearch.getText().toString());
-//        if (!cityName.equals("") && radius != 0) {
-            try {
-                api = apiPrefix + "&city=" + URLEncoder.encode(cityName, "UTF-8") + "&radius=" + radius;
-                @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"}) JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, api, null, response -> {
-                    try {
-                        JSONArray events = response.getJSONObject("_embedded").getJSONArray("events");
+        try {
+            api = apiPrefix + "&city=" + URLEncoder.encode(cityName, "UTF-8") + "&radius=" + radius;
+            @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"}) JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, api, null, response -> {
+                try {
+                    JSONArray events = response.getJSONObject("_embedded").getJSONArray("events");
 
-                        for (int i = 0; i < events.length(); i++) {
-                            JSONObject event = events.getJSONObject(i);
-                            String eventName = event.getString("name");
-                            String eventId = event.getString("id");
-                            String buyUrl = event.getString("url");
-                            String imgUrl = event.getJSONArray("images").getJSONObject(3).getString("url");
-                            String eventDate = "";
-                            if (event.getJSONObject("dates").getJSONObject("start").getString("noSpecificTime").equals("false")){
-                                eventDate = event.getJSONObject("dates").getJSONObject("start").getString("dateTime");
-                            } else {
-                                eventDate = event.getJSONObject("dates").getJSONObject("start").getString("localDate");
-                                String timezone = event.getJSONObject("dates").getString("timezone");
-                                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-                                format.setTimeZone(TimeZone.getTimeZone(timezone));
-                                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(eventDate);
-                                eventDate = format.format(date);
-                                SimpleDateFormat newFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-                                newFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-                                //format.setTimeZone(TimeZone.getTimeZone("GMT"));
-                                eventDate = newFormat.format(format.parse(eventDate));
-                            }
-                            String minPrice;
-                            String maxPrice;
-                            String currency;
-                            if (event.has("priceRanges")) {
-                                minPrice = event.getJSONArray("priceRanges").getJSONObject(0).getString("min");
-                                maxPrice = event.getJSONArray("priceRanges").getJSONObject(0).getString("max") ;
-                                currency = event.getJSONArray("priceRanges").getJSONObject(0).getString("currency");
-                            } else {
-                                minPrice = "";
-                                maxPrice = "";
-                                currency = "";
-                            }
-//                            String minPrice = event.has("priceRanges") ? event.getJSONArray("priceRanges").getJSONObject(0).getString("min") : "null";
-//                            String maxPrice = event.has("priceRanges") ? event.getJSONArray("priceRanges").getJSONObject(0).getString("max") : "null";
-//                            String currency = event.getJSONArray("priceRanges").getJSONObject(0).getString("currency");
-                            String venue = event.getJSONObject("_embedded").getJSONArray("venues").getJSONObject(0).getString("name");
-                            String postalCode = event.getJSONObject("_embedded").getJSONArray("venues").getJSONObject(0).getString("postalCode");
-                            String city = event.getJSONObject("_embedded").getJSONArray("venues").getJSONObject(0).getJSONObject("city").getString("name");
-                            String state = event.getJSONObject("_embedded").getJSONArray("venues").getJSONObject(0).getJSONObject("state").getString("stateCode");
-                            String country = event.getJSONObject("_embedded").getJSONArray("venues").getJSONObject(0).getJSONObject("country").getString("name");
-                            String address = event.getJSONObject("_embedded").getJSONArray("venues").getJSONObject(0).getJSONObject("address").getString("line1");
-                            Event eventDTO = new Event();
-                            eventDTO.setId(eventId);
-                            eventDTO.setName(eventName);
-                            eventDTO.setBuyUrl(buyUrl);
-                            eventDTO.setImgUrl(imgUrl);
-                            eventDTO.setDate(eventDate);
-                            eventDTO.setMinPrice(minPrice);
-                            eventDTO.setMaxPrice(maxPrice);
-                            eventDTO.setCurrency(currency);
-                            eventDTO.setVenue(venue);
-                            eventDTO.setPostalCode(postalCode);
-                            eventDTO.setCity(city);
-                            eventDTO.setState(state);
-                            eventDTO.setCountry(country);
-                            eventDTO.setAddress(address);
-                            eventDTO.setSaved(false);
-                            eventsList.add(eventDTO);
+                    for (int i = 0; i < events.length(); i++) {
+                        JSONObject event = events.getJSONObject(i);
+                        String eventName = event.getString("name");
+                        String eventId = event.getString("id");
+                        String buyUrl = event.getString("url");
+                        String imgUrl = event.getJSONArray("images").getJSONObject(3).getString("url");
+                        String eventDate = "";
+                        if (event.getJSONObject("dates").getJSONObject("start").getString("noSpecificTime").equals("false")){
+                            eventDate = event.getJSONObject("dates").getJSONObject("start").getString("dateTime");
+                        } else {
+                            eventDate = event.getJSONObject("dates").getJSONObject("start").getString("localDate");
+                            String timezone = event.getJSONObject("dates").getString("timezone");
+                            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                            format.setTimeZone(TimeZone.getTimeZone(timezone));
+                            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(eventDate);
+                            eventDate = format.format(date);
+                            SimpleDateFormat newFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                            newFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+                            eventDate = newFormat.format(format.parse(eventDate));
                         }
-                        myAdaptor.notifyDataSetChanged();
-                        //myAdaptor.notifyItemRangeInserted(0,eventsList.size());
-                        eventModel.events.setValue(eventsList);
-                        binding.resultText.setText(String.format(getResources().getString(R.string.show_result),cityName.toUpperCase(), radius));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        binding.resultText.setText(String.format(getResources().getString(R.string.no_result),cityName.toUpperCase(), radius));
-                        eventsList.clear();
-                        myAdaptor.notifyDataSetChanged();
-                        eventModel.events.setValue(null);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
+                        String minPrice;
+                        String maxPrice;
+                        String currency;
+                        if (event.has("priceRanges")) {
+                            minPrice = event.getJSONArray("priceRanges").getJSONObject(0).getString("min");
+                            maxPrice = event.getJSONArray("priceRanges").getJSONObject(0).getString("max") ;
+                            currency = event.getJSONArray("priceRanges").getJSONObject(0).getString("currency");
+                        } else {
+                            minPrice = "";
+                            maxPrice = "";
+                            currency = "";
+                        }
+                        String venue = event.getJSONObject("_embedded").getJSONArray("venues").getJSONObject(0).getString("name");
+                        String postalCode = event.getJSONObject("_embedded").getJSONArray("venues").getJSONObject(0).getString("postalCode");
+                        String city = event.getJSONObject("_embedded").getJSONArray("venues").getJSONObject(0).getJSONObject("city").getString("name");
+                        String state = event.getJSONObject("_embedded").getJSONArray("venues").getJSONObject(0).getJSONObject("state").getString("stateCode");
+                        String country = event.getJSONObject("_embedded").getJSONArray("venues").getJSONObject(0).getJSONObject("country").getString("name");
+                        String address = event.getJSONObject("_embedded").getJSONArray("venues").getJSONObject(0).getJSONObject("address").getString("line1");
+                        Event eventDTO = new Event();
+                        eventDTO.setId(eventId);
+                        eventDTO.setName(eventName);
+                        eventDTO.setBuyUrl(buyUrl);
+                        eventDTO.setImgUrl(imgUrl);
+                        eventDTO.setDate(eventDate);
+                        eventDTO.setMinPrice(minPrice);
+                        eventDTO.setMaxPrice(maxPrice);
+                        eventDTO.setCurrency(currency);
+                        eventDTO.setVenue(venue);
+                        eventDTO.setPostalCode(postalCode);
+                        eventDTO.setCity(city);
+                        eventDTO.setState(state);
+                        eventDTO.setCountry(country);
+                        eventDTO.setAddress(address);
+                        eventDTO.setSaved(false);
+                        eventsList.add(eventDTO);
                     }
-                },  (error) -> {});
+                    myAdaptor.notifyDataSetChanged();
+                    eventModel.events.setValue(eventsList);
+                    binding.resultText.setText(String.format(getResources().getString(R.string.show_result),cityName.toUpperCase(), radius));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    binding.resultText.setText(String.format(getResources().getString(R.string.no_result),cityName.toUpperCase(), radius));
+                    eventsList.clear();
+                    myAdaptor.notifyDataSetChanged();
+                    eventModel.events.setValue(null);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            },  (error) -> {});
 
-                queue.add(request);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-//        } else if (radius == 0) {
-//            Toast.makeText(this, "Radius has to be greater than 0!", Toast.LENGTH_SHORT).show();
-//        }
-//        else {
-//            //TODO: add message for not enter city or radius
-//            Toast.makeText(this, "Please enter a city or a radius", Toast.LENGTH_SHORT).show();
-//        }
+            queue.add(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     class MyRowHolder extends RecyclerView.ViewHolder {
