@@ -1,0 +1,33 @@
+<resources>
+    <string name="ticket_master_name">Ticket Master</string>
+    <string name="search">Search</string>
+    <string name="radius_km">Radius (km)</string>
+    <string name="city">City</string>
+    <string name="name">name</string>
+    <string name="date">date</string>
+    <string name="event_name">event name</string>
+    <string name="event_date">event date</string>
+    <string name="event_venue">event venue</string>
+    <string name="ticket_price">ticket price</string>
+    <string name="buy_ticket">Buy Ticket</string>
+    <string name="save">Save</string>
+    <string name="remove">Remove</string>
+    <string name="show_result">Events in %s around %d km: </string>
+    <string name="no_result">No found events in %s around %d km!</string>
+    <string name="invalid_city">Please enter a city</string>
+    <string name="no_radius">Please enter a radius</string>
+    <string name="zero_radius">Radius has to be greater than 0!</string>
+    <string name="delete_warning">Do you want to delete the event?</string>
+    <string name="deleted_message">You deleted the event %s</string>
+    <string name="show_favorite">Your favorite list:</string>
+    <string name="saved_to_favorite">has been saved to favorite list!</string>
+    <string name="failed_to_save">Failed to save the event. Please try again!</string>
+    <string name="event_exists">This event is already in the favorite list</string>
+    <string name="question">Question:</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="undo">Undo</string>
+    <string name="app_name">Final Project</string>
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer Close</string>
+</resources>

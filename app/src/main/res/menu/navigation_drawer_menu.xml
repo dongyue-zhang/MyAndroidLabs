@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/pexels"
+            android:icon="@drawable/ic_launcher_background"
+            android:title="Pexels" />
+        <item
+            android:id="@+id/movie_information"
+            android:icon="@drawable/ic_launcher_background"
+            android:title="Movie Information" />
+        <item
+            android:id="@+id/event_search"
+            android:icon="@drawable/ic_launcher_background"
+            android:title="Ticketmaster Event Search" />
+        <item
+            android:id="@+id/soccer_highlights"
+            android:icon="@drawable/ic_launcher_background"
+            android:title="Soccer Match Highlights" />
+        <item
+            android:id="@+id/homepage"
+            android:icon="@drawable/ic_launcher_background"
+            android:title="Homepage" />
+
+    </group>
+</menu>

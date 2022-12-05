@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ticket_master_name">买票大师</string>
+    <string name="search">搜索</string>
+    <string name="radius_km">范围(km)</string>
+    <string name="city">城市</string>
+    <string name="name">名称</string>
+    <string name="date">日期</string>
+    <string name="event_name">活动名称</string>
+    <string name="event_date">活动时间</string>
+    <string name="event_venue">活动场地</string>
+    <string name="ticket_price">票价</string>
+    <string name="buy_ticket">买票</string>
+    <string name="save">保存</string>
+    <string name="remove">删除</string>
+    <string name="show_result">搜索到的在%s的%dkm范围内的活动： </string>
+    <string name="no_result">在%s的%dkm的范围内没有搜索到活动！</string>
+    <string name="invalid_city">请输入城市名称</string>
+    <string name="no_radius">请输入范围</string>
+    <string name="zero_radius">范围必须大于0!</string>
+    <string name="delete_warning">你想删除这个活动吗?</string>
+    <string name="deleted_message">活动%s已删除</string>
+    <string name="show_favorite">你的喜欢列表：</string>
+    <string name="saved_to_favorite">成功保存到喜欢列表!</string>
+    <string name="failed_to_save">保存失败，请重试!</string>
+    <string name="event_exists">这个活动已经存在于喜欢列表中</string>
+    <string name="question">请问:</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="undo">撤回</string>
+    <string name="app_name">Final Project</string>
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer Close</string>
+</resources>
