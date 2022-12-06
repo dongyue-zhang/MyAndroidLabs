@@ -7,4 +7,9 @@
         android:icon="@drawable/favorite_list"
         android:title="Favorite List"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/help"
+        android:icon="@drawable/help"
+        android:title="Help"
+        app:showAsAction="always"/>
 </menu>

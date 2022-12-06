@@ -5,15 +5,18 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,17 +31,22 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.TimeZone;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -124,8 +132,19 @@ public class TicketMasterActivity extends AppCompatActivity {
                 holder.eventDateText.setText("");
                 holder.eventNameText.setText("");
                 Event obj = eventsList.get(position);
-                holder.eventDateText.setText(obj.getDate());
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM dd, yyyy");
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                dateFormat.setTimeZone(TimeZone.getDefault());
+                timeFormat.setTimeZone(TimeZone.getDefault());
+                try {
+                    holder.eventDateText.setText(dateFormat.format(Objects.requireNonNull(oldFormat.parse(obj.getDate()))));
+                    holder.eventTimeText.setText(timeFormat.format(Objects.requireNonNull(oldFormat.parse(obj.getDate()))));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 holder.eventNameText.setText(obj.getName());
+
             }
 
             @Override
@@ -137,6 +156,8 @@ public class TicketMasterActivity extends AppCompatActivity {
         Executor thread = Executors.newSingleThreadExecutor();
         thread.execute(() -> {
             runOnUiThread(() -> binding.eventsRecyclerView.setAdapter(myAdaptor));
+            binding.eventsRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
+                    DividerItemDecoration.VERTICAL));
         });
 
         eventModel.selectedEvent.observe(this, newEvent -> {
@@ -228,6 +249,13 @@ public class TicketMasterActivity extends AppCompatActivity {
                     }
                 });
                 break;
+            case R.id.help:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogTheme);
+                builder.setMessage(String.format(getResources().getString(R.string.helpMessage)))
+                        .setTitle(R.string.Usage)
+                        .setNeutralButton(R.string.ok, (dialog, cl) -> {})
+                                    .show();
+                break;
         }
 
         return true;
@@ -257,6 +285,12 @@ public class TicketMasterActivity extends AppCompatActivity {
                         String eventDate = "";
                         if (event.getJSONObject("dates").getJSONObject("start").getString("noSpecificTime").equals("false")){
                             eventDate = event.getJSONObject("dates").getJSONObject("start").getString("dateTime");
+                            String timezone = event.getJSONObject("dates").getString("timezone");
+                            @SuppressLint("SimpleDateFormat") SimpleDateFormat newFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                            @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                            format.setTimeZone(TimeZone.getTimeZone(timezone));
+                            newFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+                            eventDate = newFormat.format(format.parse(eventDate));
                         } else {
                             eventDate = event.getJSONObject("dates").getJSONObject("start").getString("localDate");
                             String timezone = event.getJSONObject("dates").getString("timezone");
@@ -327,6 +361,7 @@ public class TicketMasterActivity extends AppCompatActivity {
     class MyRowHolder extends RecyclerView.ViewHolder {
         TextView eventDateText;
         TextView eventNameText;
+        TextView eventTimeText;
 
         public MyRowHolder(@NonNull View itemView) {
             super(itemView);
@@ -339,6 +374,7 @@ public class TicketMasterActivity extends AppCompatActivity {
 
             eventDateText = itemView.findViewById(R.id.datePreview);
             eventNameText = itemView.findViewById(R.id.namePreview);
+            eventTimeText = itemView.findViewById(R.id.timePreview);
         }
 
     }

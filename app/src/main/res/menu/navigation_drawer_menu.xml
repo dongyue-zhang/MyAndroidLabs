@@ -4,24 +4,24 @@
 
         <item
             android:id="@+id/pexels"
-            android:icon="@drawable/ic_launcher_background"
-            android:title="Pexels" />
+            android:icon="@drawable/pixels"
+            android:title="@string/pexels" />
         <item
             android:id="@+id/movie_information"
-            android:icon="@drawable/ic_launcher_background"
-            android:title="Movie Information" />
+            android:icon="@drawable/movie"
+            android:title="@string/movie_name" />
         <item
-            android:id="@+id/event_search"
-            android:icon="@drawable/ic_launcher_background"
-            android:title="Ticketmaster Event Search" />
+            android:id="@+id/ticketmaster"
+            android:icon="@drawable/ticketmaster"
+            android:title="@string/ticket_master_name" />
         <item
             android:id="@+id/soccer_highlights"
-            android:icon="@drawable/ic_launcher_background"
-            android:title="Soccer Match Highlights" />
+            android:icon="@drawable/soccer"
+            android:title="@string/soccer_name" />
         <item
             android:id="@+id/homepage"
-            android:icon="@drawable/ic_launcher_background"
-            android:title="Homepage" />
+            android:icon="@drawable/homepage"
+            android:title="@string/homepage" />
 
     </group>
 </menu>

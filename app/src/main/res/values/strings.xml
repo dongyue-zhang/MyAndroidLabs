@@ -30,4 +30,13 @@
     <string name="app_name">Final Project</string>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
+    <string name="time">time</string>
+    <string name="eventAddress">event address</string>
+    <string name="ok">ok</string>
+    <string name="Usage">Usage</string>
+    <string name="helpMessage">Enter city name and radius for searching events.%nClick "Save" for saving events into favorite list.%nClick "Remove" for removing events from favorite list.</string>
+    <string name="soccer_name">Soccer Highlight</string>
+    <string name="pexels">Pexels</string>
+    <string name="movie_name">Movies</string>
+    <string name="homepage">Homepage</string>
 </resources>

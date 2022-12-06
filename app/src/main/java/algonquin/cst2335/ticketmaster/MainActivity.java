@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import algonquin.cst2335.ticketmaster.NavigationDrawer;
@@ -27,6 +28,8 @@ public class MainActivity extends NavigationDrawer {
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setActivityTitle("Homepage");
         setContentView(activityMainBinding.getRoot());
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
     }
 
     @Override

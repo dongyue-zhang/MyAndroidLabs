@@ -1,5 +1,6 @@
 package algonquin.cst2335.ticketmaster.ui.main;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +29,10 @@ import com.google.android.material.snackbar.Snackbar;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Objects;
+import java.util.TimeZone;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -56,9 +61,17 @@ public class EventDetailsFragment extends Fragment {
 
         String imgUrl = selected.getImgUrl();
         binding.eventName.setText(selected.getName());
-        binding.eventDate.setText(selected.getDate());
-        binding.eventVenue.setText(selected.getVenue() + " " + selected.getAddress() + selected.getCity() + selected.getState() + selected.getCountry() + selected.getPostalCode());
-        binding.ticketPrice.setText(selected.getMaxPrice() + " " + selected.getMinPrice() + selected.getCurrency());
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        SimpleDateFormat newFormat = new SimpleDateFormat("h:mm a EEE    MMM dd, yyyy");
+        newFormat.setTimeZone(TimeZone.getDefault());
+        try {
+            binding.eventDate.setText(newFormat.format(format.parse(selected.getDate())));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        binding.eventVenue.setText(selected.getVenue());
+        binding.eventAddress.setText(selected.getAddress() + ", " + selected.getCity() + ", " + selected.getState() + ", " + selected.getCountry() + " " + selected.getPostalCode());
+        binding.ticketPrice.setText(selected.getCurrency() + " " + selected.getMinPrice() + " - " + selected.getMaxPrice() );
 
         binding.buyTicketButton.setOnClickListener(click -> {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(selected.getBuyUrl()));

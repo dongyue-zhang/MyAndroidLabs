@@ -28,7 +28,16 @@
     <string name="yes">是</string>
     <string name="no">否</string>
     <string name="undo">撤回</string>
-    <string name="app_name">Final Project</string>
+    <string name="app_name">结课项目</string>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
+    <string name="time">时间</string>
+    <string name="eventAddress">活动地址</string>
+    <string name="ok">好</string>
+    <string name="Usage">使用方法</string>
+    <string name="helpMessage">找活动：输入城市和范围%n点击"保存"收藏喜欢的活动%n点击"删除"从喜欢列表中移除活动</string>
+    <string name="soccer_name">足球小子</string>
+    <string name="pexels">搜图助手</string>
+    <string name="movie_name">电影大搜查</string>
+    <string name="homepage">主页</string>
 </resources>

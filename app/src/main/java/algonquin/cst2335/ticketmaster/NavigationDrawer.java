@@ -34,6 +34,7 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
 
         NavigationView navigationView = drawerLayout.findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
         toggle.syncState();
@@ -43,7 +44,7 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         drawerLayout.closeDrawer(GravityCompat.START);
         switch(item.getItemId()) {
-            case R.id.event_search:
+            case R.id.ticketmaster:
                 startActivity(new Intent(this, TicketMasterActivity.class));
                 break;
             case R.id.movie_information:

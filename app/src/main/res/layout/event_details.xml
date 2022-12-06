@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clickable="true"
     tools:context=".ui.main.EventDetailsFragment">
 
     <ImageView
         android:id="@+id/eventImg"
-        android:layout_width="240dp"
-        android:layout_height="160dp"
-        android:layout_marginTop="88dp"
+        android:layout_width="342dp"
+        android:layout_height="211dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
@@ -24,10 +24,11 @@
         android:id="@+id/eventName"
         android:layout_width="350dp"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="32dp"
         android:gravity="center"
         android:text="@string/event_name"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,59 +38,66 @@
         android:id="@+id/eventDate"
         android:layout_width="350dp"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="@string/event_date"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eventName" />
 
     <TextView
         android:id="@+id/eventVenue"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="346dp"
+        android:layout_height="33dp"
         android:gravity="center"
         android:text="@string/event_venue"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eventDate" />
+
+    <TextView
+        android:id="@+id/eventAddress"
+        android:layout_width="348dp"
+        android:layout_height="37dp"
+        android:gravity="center"
+        android:text="@string/eventAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventVenue" />
 
     <TextView
         android:id="@+id/ticketPrice"
         android:layout_width="350dp"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="@string/ticket_price"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventVenue" />
+        app:layout_constraintTop_toBottomOf="@+id/eventAddress" />
 
     <Button
         android:id="@+id/buyTicketButton"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="44dp"
+        app:backgroundTint="@color/teal_200"
         android:text="@string/buy_ticket"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/ticketPrice"
         app:layout_constraintTop_toBottomOf="@+id/ticketPrice" />
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginTop="44dp"
         android:text="@string/save"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:backgroundTint="@color/teal_200"
+        app:layout_constraintEnd_toEndOf="@+id/ticketPrice"
         app:layout_constraintTop_toBottomOf="@+id/ticketPrice" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
